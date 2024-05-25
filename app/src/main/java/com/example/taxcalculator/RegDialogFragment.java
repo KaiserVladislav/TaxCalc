@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+
+
 public class RegDialogFragment extends DialogFragment {
 
     private Button Registration;
@@ -35,11 +37,14 @@ public class RegDialogFragment extends DialogFragment {
         History = view.findViewById(R.id.history);
         Login = view.findViewById(R.id.login);
 
+        SharedPreferences preferences = getActivity().getSharedPreferences("checkbox", Context.MODE_PRIVATE);
+        String remembered = preferences.getString("remember", "");
+        SharedPreferences authorized = getActivity().getSharedPreferences("Authorization", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = authorized.edit();
+
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getActivity().getSharedPreferences("checkbox", Context.MODE_PRIVATE);
-                String remembered = preferences.getString("remember", "");
                 if(remembered.equals("true")) {
                     Toast.makeText(getActivity(), "Вы уже авторизованы", Toast.LENGTH_SHORT).show();
                     dismiss(); // Close the dialog
@@ -48,17 +53,33 @@ public class RegDialogFragment extends DialogFragment {
                     dismiss();
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     startActivity(intent);
-               }
+                }
             }
         });
-        Registration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), RegistrationActivity.class);
-                startActivity(intent);
-                dismiss(); // Close the dialog
-            }
-        });
+
+        if(remembered.equals("true")){
+            Registration.setText("Sign out");
+            Registration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editor.putString("authorized", "false");
+                    Toast.makeText(getActivity(), "Вы успешно вышли из аккаунта", Toast.LENGTH_SHORT);
+                    dismiss();
+                }
+            });
+        }
+        else{
+            Registration.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), RegistrationActivity.class);
+                    startActivity(intent);
+                    dismiss(); // Close the dialog
+                }
+            });
+        }
+
+
         History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
