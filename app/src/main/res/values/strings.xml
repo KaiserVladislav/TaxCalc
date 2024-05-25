@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">TaxCalc</string>
+
+
+    <string name="info_button_description" translatable="false">Information button</string>
+    <string name="income_button_description" translatable="false">Income button</string>
+    <string name="bag_button_description" translatable="false">Bag button</string>
+    <string name="circle_button_description" translatable="false">Circle button</string>
+    <string name="car_button_description" translatable="false">Car button</string>
+    <string name="obligation_tax_button_description" translatable="false">Obligation tax button</string>
+    <string name="eagle_button_description" translatable="false">Eagle button</string>
+
+    <!-- localization - russian -->
+    <string name="NDS">НДС</string>
+    <string name="NDFL">НДФЛ</string>
+    <string name="car_tax">Автомобиль</string>
+    <string name="obligation_tax">Ценные бумаги</string>
+    <string name="lottery_tax">Лотерейные выигрыши</string>
+    <string name="another">Другое</string>
+    <string name="placeholder">Здесь будет сборник цитат экономистов</string>
+    <string name="add_to_history">Добавить в историю расчетов</string>
+    <string name="price">Цена</string>
+    <string name="tax_residency">Резидентство</string>
+    <string name="purchase_price">Цена при покупке</string>
+    <string name="sale_price">Цена при продаже</string>
+    <string name="calculate">Рассчитать</string>
+    <string name="amount_of_shares">Количество акций</string>
+    <string name="horsepower">Лошадиных сил</string>
+    <string name="lottery_type">Тип лотереи</string>
+    <string name="prize">Выигрыш</string>
+    <string name="region">Регион</string>
+    <string name="vehicle_type">Тип автомобиля</string>
+    <string name="months_of_ownership">Месяцев владения</string>
+    <string name="type_of_goods">Вид товаров</string>
+    <string name="login">Вход</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="registration">Регистрация</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
+    <string name="username">Имя пользователя</string>
+    <string name="usernameEmail">Имя пользователя/Почта</string>
+    <string name="remember_me">Запомнить меня</string>
+    <string name="history">История</string>
+    <string name="yearly_income">Годовой доход</string>
+    <string name="welcome">Добро пожаловать!</string>
+
+    <string name="information_patchnotes" translatable="false">
+        Версия приложения: 1.0    <br/>
+        Реализован расчет НДС, НДФЛ, налог на продажу ценных бумаг, на автомобиль, на лотерейные выигрыши.<br/>
+        Разработчики: Шендрик ВС, Воронков ИА. <br/>
+        Дизайнеры: Шендрик ВС.<br/>
+        Бэкенд-разработчики: Воронков ИА.</string>
+
+
+    <string-array name="dropdown_regions">
+        <item>"77-Москва"</item>
+        <item>"78-Санкт-Петербург"</item>
+    </string-array>
+
+    <string-array name="dropdown_vehicle_types">
+        <item>"Легковой автомобиль"</item>
+    </string-array>
+    <string-array name="dropdown_months_of_ownership">
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+        <item>"5"</item>
+        <item>"6"</item>
+        <item>"7"</item>
+        <item>"8"</item>
+        <item>"9"</item>
+        <item>"10"</item>
+        <item>"11"</item>
+        <item>"12"</item>
+    </string-array>
+    <string-array name="lottery_types">
+        <item>"Государственная лотерея"</item>
+        <item>"Рекламная акция"</item>
+    </string-array>
+    <string-array name="residency_types">
+        <item>"Налоговый резидент"</item>
+        <item>"Налоговый нерезидент"</item>
+    </string-array>
+    <string-array name="types_of_goods">
+        <item>"Товары для экспорта"</item>
+        <item>"Продовольственные, медицинские, детские товары"</item>
+        <item>"Другое"</item>
+    </string-array>
+
+</resources>

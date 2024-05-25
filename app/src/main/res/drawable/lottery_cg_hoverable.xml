@@ -1,0 +1,5 @@
+<!-- res/drawable/hover_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/lottery" android:state_hovered="true" />
+    <item android:drawable="@drawable/lottery_cg" />
+</selector>

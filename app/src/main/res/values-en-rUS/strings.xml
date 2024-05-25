@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaxCalc</string>
+    <string name="NDS">NDS</string>
+    <string name="NDFL">NDFL</string>
+    <string name="car_tax">Car</string>
+    <string name="obligation_tax">Obligations</string>
+    <string name="lottery_tax">"Lottery "</string>
+    <string name="another">Other</string>
+    <string name="placeholder">Here will be a list of economists quotes</string>
+    <string name="add_to_history">Add to history of calculations</string>
+    <string name="price">Price</string>
+    <string name="tax_residency">Tax residency</string>
+    <string name="purchase_price">Purchase Price</string>
+    <string name="sale_price">Sale Price</string>
+    <string name="calculate">Calculate</string>
+    <string name="amount_of_shares">Amount of shares</string>
+    <string name="lottery_type">Lottery type</string>
+    <string name="prize">Prize</string>
+    <string name="region">Region</string>
+    <string name="vehicle_type">Vehicle type</string>
+    <string name="months_of_ownership">Months of ownership</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="history">History</string>
+    <string name="registration">Registration</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="remember_me">Remember me</string>
+    <string name="welcome">Welcome!</string>
+    <string name="usernameEmail">Username/Email</string>
+    <string name="type_of_goods">Type of goods</string>
+    <string name="horsepower">Horsepower</string>
+    <string name="yearly_income">Annual income</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="TEST_RED">#FF0000</color>
+    <color name="TEST_GREEN">#00FF00</color>
+    <color name="TEST_BLUE">#0000FF</color>
+
+    <color name="french_gray">#ADABAD</color>
+
+    <!-- palette one - https://coolors.co/2f6690-3a7ca5-d9dcd6-16425b-81c3d7 -->
+    <color name="lapis_lazuli">#2f6690</color>
+    <color name="cerulean">#3a7ca5</color>
+    <color name="platinum">#d9dcd6</color>
+    <color name="indigo_dye">#16425b</color>
+    <color name="sky_blue">#81c3d7</color>
+
+    <!-- palette two -  https://coolors.co/0d1f2d-546a7b-9ea3b0-fae1df-e4c3ad -->
+    <color name="rich_black">#0d1f2d</color>
+    <color name="paynes_grey">#546a7b</color>
+    <color name="cadet_gray">#9ea3b0</color>
+    <color name="misty_rose">#fae1df</color>
+    <color name="desert_sand">#e4c3ad</color>
+
+    <!-- palette golden https://coolors.co/ffb703-feab03-fd9e02-fd9802-fc9201-fb8500-->
+    <color name="yellow_sensitive">#ffb703</color>
+    <color name="golden">#feab03</color>
+    <color name="orange_peel_0">#fd9e02</color>
+    <color name="orange_peel">#fd9802</color>
+    <color name="princeton_orange">#fc9201</color>
+
+
+
+
+</resources>
