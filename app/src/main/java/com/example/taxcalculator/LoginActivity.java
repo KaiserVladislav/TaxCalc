@@ -13,10 +13,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.taxcalculator.Home;
+import com.example.taxcalculator.R;
 import com.example.taxcalculator.Server.RetrofitService;
 import com.example.taxcalculator.Server.User;
 import com.example.taxcalculator.Server.UserApi;
@@ -27,14 +31,11 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initializeComponents();
-
-
         ImageButton backToSSA=findViewById(R.id.back_to_SSA);
         backToSSA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 backToSSA.startAnimation(left);
             }
         });
+
     }
 
     private void initializeComponents() {
@@ -70,15 +72,18 @@ public class LoginActivity extends AppCompatActivity {
         EditText username = findViewById(R.id.UsernameLog);
         EditText password = findViewById(R.id.PasswordLog);
 
-        String usernameValue = username.getText().toString().trim();//without spaces
-        String passwordValue = password.getText().toString().trim();
-
         Button loginButton = findViewById(R.id.Login);
+
         CheckBox rememberCheckBox = findViewById(R.id.LoginRemember);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String usernameValue = username.getText().toString().trim();//without spaces
+                String passwordValue = password.getText().toString().trim();
+
+                Log.d("DEBUG", "onClick: "+usernameValue + " " + passwordValue);
+
                 if (!rememberCheckBox.isChecked()) {
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("remember", "false");
@@ -99,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         rememberCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                String usernameValue = username.getText().toString().trim();//without spaces
                 SharedPreferences.Editor editor = preferences.edit();
                 if (isChecked) {
                     editor.putString("remember", "true");
@@ -118,6 +123,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginLogic(String username, String password) {
+        SharedPreferences preferences = getSharedPreferences("Authorization", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
         RetrofitService retrofitService = new RetrofitService();
         UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
         if (username.contains("@")) {
@@ -127,8 +135,10 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<User> call, Response<User> response) {
                     Log.d("Success", "Email response " + response.body());
                     if (password.equals(response.body().getPassword())) {
-                        //Navigation.findNavController(view).navigate(R.id.action_rootFragment_to_menuFragment);
+                        editor.putString("authorized", "true");
+                        Intent intent = new Intent(LoginActivity.this, Home.class);
                         Toast.makeText(getApplicationContext(), "Вы успешно авторизированы", Toast.LENGTH_LONG).show();
+                        startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "Password is wrong", Toast.LENGTH_LONG).show();
                     }
@@ -144,11 +154,12 @@ public class LoginActivity extends AppCompatActivity {
             userApi.getUserByUsername(username).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    Toast.makeText(getApplicationContext(), "Вы успешно авторизированы", Toast.LENGTH_LONG).show();
                     Log.d("Success", "Username response " + response.body());
                     if (password.equals(response.body().getPassword())) {
-                        //Navigation.findNavController(view).navigate(R.id.action_rootFragment_to_menuFragment);
+                        editor.putString("authorized", "true");
+                        Intent intent = new Intent(LoginActivity.this, Home.class);
                         Toast.makeText(getApplicationContext(), "Вы успешно авторизированы", Toast.LENGTH_LONG).show();
+                        startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "Password is wrong", Toast.LENGTH_LONG).show();
                     }
