@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaxCalc</string>
+    <string name="NDS">НДС</string>
+    <string name="NDFL">НДФЛ</string>
+    <string name="car_tax">Автомобиль</string>
+    <string name="obligation_tax">Ценные бумаги</string>
+    <string name="lottery_tax">Лотерейные выигрыши</string>
+    <string name="another">Другое</string>
+    <string name="placeholder">Здесь будет сборник цитат экономистов</string>
+    <string name="add_to_history">Добавить в историю расчетов</string>
+    <string name="price">Цена</string>
+    <string name="tax_residency">Резидентство</string>
+    <string name="purchase_price">Цена при покупке</string>
+    <string name="sale_price">Цена при продаже</string>
+    <string name="calculate">Рассчитать</string>
+    <string name="amount_of_shares">Количество акций</string>
+    <string name="lottery_type">Тип лотереи</string>
+    <string name="prize">Выигрыш</string>
+    <string name="region">Регион</string>
+    <string name="vehicle_type">Тип автомобиля</string>
+    <string name="months_of_ownership">Месяцев владения</string>
+    <string name="login">Вход</string>
+    <string name="register">Зарегистрироваться</string>
+    <string name="history">История</string>
+    <string name="registration">Регистрация</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
+    <string name="username">Имя пользователя</string>
+    <string name="remember_me">Запомнить меня</string>
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="usernameEmail">Имя пользователя/Почта</string>
+    <string name="type_of_goods">Вид товаров</string>
+    <string name="horsepower">Лошадиных сил</string>
+    <string name="yearly_income">Годовой доход</string>
+</resources>

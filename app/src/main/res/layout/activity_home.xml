@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/rich_black"
+    tools:context=".Home">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+
+        android:layout_marginBottom="70dp">
+
+
+        <ImageButton
+            android:layout_gravity="center"
+            android:id="@+id/hamburgerIB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@null"
+
+            android:src="@drawable/baseline_menu_24"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/app_name" />
+
+
+        <ImageButton
+            android:layout_gravity="end"
+            android:id="@+id/us_flag_IB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@null"
+
+            android:src="@drawable/us"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/app_name" />
+
+        <ImageButton
+            android:layout_gravity="end"
+            android:id="@+id/russia_flag_IB"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@null"
+
+            android:src="@drawable/russia"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/app_name" />
+
+
+    </FrameLayout>
+
+
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/LL1"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:src="@drawable/income_cg_hoverable"
+                        android:background="@null"
+                        android:id="@+id/IMGB1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="0dp"
+                        android:contentDescription="@string/income_button_description"
+                        android:tooltipText="Income button" />
+
+                    <TextView
+                        android:id="@+id/TV_NDFL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/NDFL"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL2"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_toEndOf="@id/LL1">
+
+                    <ImageButton
+                        android:src="@drawable/bag_cg_hoverable"
+                        android:background="@null"
+                        android:id="@+id/IMGB2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="0dp"
+                        android:contentDescription="@string/bag_button_description"
+                        android:tooltipText="Bag button"/>
+
+                    <TextView
+                        android:id="@+id/TV_NDS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/NDS"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL3"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_below="@id/LL1">
+
+                    <ImageButton
+                        android:src="@drawable/lottery_cg_hoverable"
+                        android:background="@null"
+                        android:id="@+id/IMGB3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="0dp"
+                        android:contentDescription="@string/circle_button_description"
+                        android:tooltipText="Circle button"/>
+
+                    <TextView
+                        android:id="@+id/TV_lottery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lottery_tax"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL4"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_below="@id/LL1"
+                    android:layout_toEndOf="@id/LL3">
+
+                    <ImageButton
+                        android:src="@drawable/car_cg_hoverable"
+                        android:background="@null"
+                        android:id="@+id/IMGB4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="0dp"
+                        android:contentDescription="@string/car_button_description"
+                        android:tooltipText="Car button"/>
+
+                    <TextView
+                        android:id="@+id/TV_car"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/car_tax"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL5"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_below="@id/LL3">
+
+                    <ImageButton
+                        android:src="@drawable/obligation_tax_cg_hoverable"
+                        android:background="@null"
+                        android:id="@+id/IMGB5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="0dp"
+                        android:contentDescription="@string/obligation_tax_button_description"
+                        android:tooltipText="Obligation tax button"/>
+
+                    <TextView
+                        android:id="@+id/TV_obligation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/obligation_tax"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/LL6"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_below="@id/LL4"
+                    android:layout_toEndOf="@id/LL5">
+
+                    <ImageButton
+                        android:id="@+id/IMGB6"
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/r_eagle1_cg_hoverable"
+                        android:background="@null"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="0dp"
+                        android:backgroundTint="@color/cadet_gray"
+                        android:backgroundTintMode="src_atop"
+                        android:contentDescription="@string/eagle_button_description"
+                        android:tooltipText="Eagle button"/>
+
+                    <TextView
+                        android:id="@+id/TV_another"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/another"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+    </ScrollView>
+
+    <ImageButton
+       android:layout_marginTop="20dp"
+        android:id="@+id/infoIB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/outline_info_24_cg_hoverable"
+        android:background="@null"
+        android:contentDescription="@string/info_button_description"
+        />
+
+</LinearLayout>

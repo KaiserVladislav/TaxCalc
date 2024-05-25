@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/styles.xml -->
+<resources>
+    <style name="CustomButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/frame</item>
+        <item name="android:textColor">@color/golden</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+</resources>

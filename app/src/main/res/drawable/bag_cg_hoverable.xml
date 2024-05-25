@@ -1,0 +1,5 @@
+<!-- res/drawable/hover_selector.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bag" android:state_hovered="true" />
+    <item android:drawable="@drawable/bag_cg" />
+</selector>
