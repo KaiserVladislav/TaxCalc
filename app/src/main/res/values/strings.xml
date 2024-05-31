@@ -12,7 +12,7 @@
     <!-- localization - russian -->
     <string name="NDS">НДС</string>
     <string name="NDFL">НДФЛ</string>
-    <string name="car_tax">Автомобиль</string>
+    <string name="car_tax">Транспорт</string>
     <string name="obligation_tax">Ценные бумаги</string>
     <string name="lottery_tax">Лотерейные выигрыши</string>
     <string name="another">Другое</string>
@@ -28,7 +28,7 @@
     <string name="lottery_type">Тип лотереи</string>
     <string name="prize">Выигрыш</string>
     <string name="region">Регион</string>
-    <string name="vehicle_type">Тип автомобиля</string>
+    <string name="vehicle_type">Тип транспорта</string>
     <string name="months_of_ownership">Месяцев владения</string>
     <string name="type_of_goods">Вид товаров</string>
     <string name="login">Вход</string>

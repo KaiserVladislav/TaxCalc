@@ -1,4 +1,4 @@
-package com.example.taxcalculator;
+package com.example.taxcalculator.taxes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+
+import com.example.taxcalculator.Home;
+import com.example.taxcalculator.R;
 
 public class another_activity extends AppCompatActivity {
 

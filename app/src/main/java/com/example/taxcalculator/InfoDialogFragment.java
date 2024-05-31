@@ -1,9 +1,12 @@
 package com.example.taxcalculator;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +57,31 @@ public class InfoDialogFragment extends DialogFragment {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss(); // Close the dialog
+
+                Home home_activity = (Home) getActivity();
+                if (home_activity != null) {
+                    ImageButton infoButton = home_activity.findViewById(R.id.infoIB);
+                    Animation rotate_CC = AnimationUtils.loadAnimation(home_activity.getApplicationContext(), R.anim.rotate_info_counter_clockwise);
+                    rotate_CC.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            infoButton.setHovered(false);
+                            dismiss();
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    infoButton.startAnimation(rotate_CC);
+                    v.startAnimation(rotate_CC);
+                }
             }
         });
 

@@ -2,12 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:background="@color/rich_black"
+    android:layout_height="100dp">
     <TextView
+        android:layout_marginTop="5dp"
         android:id="@+id/operation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="20sp"
+        android:textSize="25sp"
+        android:padding="5dp"
+        android:textColor="@color/golden"
+        android:background="@drawable/frame_thin_et"
+        android:textStyle="italic"
         android:gravity="center"
         android:text="Operation"
         tools:ignore="MissingConstraints">

@@ -1,4 +1,4 @@
-package com.example.taxcalculator;
+package com.example.taxcalculator.taxes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -14,8 +14,13 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.example.taxcalculator.Home;
 import com.example.taxcalculator.LocalData.Operation;
 import com.example.taxcalculator.LocalData.OperationRepository;
+import com.example.taxcalculator.R;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.Locale;
@@ -180,10 +185,15 @@ public class car_tax_activity extends AppCompatActivity {
                     tv.setVisibility(View.VISIBLE);
                     add.setVisibility(View.VISIBLE);
 
+
                     add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String info = "CarTax " + String.format("%.0f",result);
+                            String info;
+                            if(currentLanguage.equals("ru"))
+                                info = "Транспортный налог:\n" + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
+                            else
+                                info = "Transport tax:\n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
                             Operation op = new Operation(info);
 
                             ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -193,6 +203,13 @@ public class car_tax_activity extends AppCompatActivity {
                             });
 
                             Log.d("History", "CarTax added");
+
+                            if (currentLanguage.equals("ru")){
+                                Toast.makeText(getApplicationContext(),"Расчет добавлен в историю",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Calculation was added to history",Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     });
 

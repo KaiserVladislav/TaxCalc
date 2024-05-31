@@ -3,7 +3,7 @@
     <string name="app_name">TaxCalc</string>
     <string name="NDS">NDS</string>
     <string name="NDFL">NDFL</string>
-    <string name="car_tax">Car</string>
+    <string name="car_tax">Transport</string>
     <string name="obligation_tax">Obligations</string>
     <string name="lottery_tax">"Lottery "</string>
     <string name="another">Other</string>

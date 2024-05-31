@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +14,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.taxcalculator.taxes.another_activity;
+import com.example.taxcalculator.taxes.car_tax_activity;
+import com.example.taxcalculator.taxes.lottery_activity;
+import com.example.taxcalculator.taxes.ndfl_activity;
+import com.example.taxcalculator.taxes.nds_activity;
+import com.example.taxcalculator.taxes.obligations_activity;
 
 public class Home extends AppCompatActivity {
 
@@ -243,7 +249,6 @@ public class Home extends AppCompatActivity {
             @Override
             public boolean onHover(View v, MotionEvent event) {
                 Log.d("onHover COMPLETED", "onHover COMPLETED");
-
                 return false;
             }
         });
@@ -252,6 +257,25 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("onClick COMPLETED", "onClick COMPLETED");
                 showInfoDialog();
+                Animation rotate = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_info);
+                rotate.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                info_IB.setHovered(true);
+                v.startAnimation(rotate);
             }
         });
 

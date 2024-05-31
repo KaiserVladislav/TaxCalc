@@ -1,7 +1,7 @@
-package com.example.taxcalculator;
+package com.example.taxcalculator.taxes;
 
 import java.util.HashMap;
-
+import java.util.Calendar;
 public class TaxCalculation {
     public static double calculateNDFL(double input, String residency){
         if(input<=4000)
@@ -187,6 +187,19 @@ public class TaxCalculation {
         }
         return result; // ~ default
     }
+
+    public static String getTime(){
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1; // Month starts from 0
+        int year = calendar.get(Calendar.YEAR);
+
+         return day + "/" + month + "/" + year;
+
+
+    }
+
 
 
 }

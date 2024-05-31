@@ -7,7 +7,7 @@
     android:background="@color/rich_black"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".ndfl_activity">
+    tools:context=".taxes.ndfl_activity">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

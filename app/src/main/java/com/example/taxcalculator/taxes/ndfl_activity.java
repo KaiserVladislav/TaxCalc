@@ -1,6 +1,7 @@
-package com.example.taxcalculator;
+package com.example.taxcalculator.taxes;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,25 +14,30 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.taxcalculator.Home;
 import com.example.taxcalculator.LocalData.Operation;
 import com.example.taxcalculator.LocalData.OperationRepository;
+import com.example.taxcalculator.R;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.Locale;
 
-public class obligations_activity extends AppCompatActivity {
+public class ndfl_activity extends AppCompatActivity {
+    Button calculateB;
+    ImageButton addIB, backIB;
+    Spinner spinner_residency;
+    EditText incomeET;
+    private TextView tv;
 
-    private Spinner spinner;
-    private Button calculateB;
-    private ImageButton backIB, addIB;
-    private EditText purchase_priceET, sale_priceET, amount_of_sharesET;
-    private TextView obligation_taxTV;
-    private String residency="";
+    String residency="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_obligations);
-
+        setContentView(R.layout.activity_ndfl);
 
         backIB=findViewById(R.id.back_to_SSA);
         backIB.setOnClickListener(new View.OnClickListener() {
@@ -61,77 +67,69 @@ public class obligations_activity extends AppCompatActivity {
             }
         });
 
-        purchase_priceET = findViewById(R.id.purchase_price_ET);
-        sale_priceET = findViewById(R.id.sale_price_ET);
-        amount_of_sharesET = findViewById(R.id.amount_of_shares_ET);
 
-        calculateB=findViewById(R.id.calc_obligation_tax);
-        obligation_taxTV=findViewById(R.id.TV_obligation_tax);
-        addIB=findViewById(R.id.add_to_history_OBLIGATION);
+        spinner_residency=findViewById(R.id.spinner_residency_NDFL);
 
-        spinner = findViewById(R.id.spinner_residency_OblTax);
-        ArrayAdapter<CharSequence> adapter_vt;
         Locale currentLocale = Locale.getDefault();
         String currentLanguage = currentLocale.getLanguage();
+
+        ArrayAdapter<CharSequence> adapter_residency;
+
         if(currentLanguage.equals("ru")){
-             adapter_vt = ArrayAdapter.createFromResource(this,
+            adapter_residency = ArrayAdapter.createFromResource(this,
                     R.array.residency_types_rus, R.layout.custom_spinner_item);
         }else{
-            adapter_vt = ArrayAdapter.createFromResource(this,
+            adapter_residency = ArrayAdapter.createFromResource(this,
                     R.array.residency_types_eng, R.layout.custom_spinner_item);
         }
 
-        adapter_vt.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
-        spinner.setAdapter(adapter_vt);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+
+        adapter_residency.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinner_residency.setAdapter(adapter_residency);
+        spinner_residency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 residency = parent.getItemAtPosition(position).toString();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Another interface callback
             }
         });
 
-
-
+        calculateB=findViewById(R.id.calc_NDFL);
+        tv = findViewById(R.id.TV_ndfl_tax);
+        addIB=findViewById(R.id.add_to_history_NDFL);
         calculateB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (purchase_priceET.getText().toString().isEmpty() ||
-                        purchase_priceET.getText().toString().isEmpty() ||
-                        purchase_priceET.getText().toString().isEmpty() ){
+                incomeET = findViewById(R.id.income_ET);
+                if(incomeET.getText().toString().isEmpty()){
                     String message="No input. Please retry";
-                    obligation_taxTV.setText("");
-                    obligation_taxTV.append(message);
-                    obligation_taxTV.setVisibility(View.VISIBLE);
-
+                    tv.setText("");
+                    tv.append(message);
+                    tv.setVisibility(View.VISIBLE);
                 }else{
-                    if(residency.equals("Налоговый нерезидент"))
-                        residency="Alien";
-                    else {
-                        residency="Russian";
-                    }
+                    double income = Double.parseDouble(incomeET.getText().toString().toString());
+                    double result = TaxCalculation.calculateNDFL(income,residency);
 
-                    double purchase_price=Double.parseDouble(purchase_priceET.getText().toString());
-                    double sale_price=Double.parseDouble(sale_priceET.getText().toString());
-                    int amount_of_shares=Integer.parseInt(amount_of_sharesET.getText().toString());
 
-                    double result = TaxCalculation.calculateObligationsTax(purchase_price, sale_price, amount_of_shares,residency);
-
-                    obligation_taxTV.setText("");
+                    tv.setText("");
                     String formatted = String.format("%.0f",result);
-                    obligation_taxTV.append(formatted+" Р");
-                    obligation_taxTV.setVisibility(View.VISIBLE);
+                    tv.append(formatted+" Р");
+                    tv.setVisibility(View.VISIBLE);
 
                     addIB.setVisibility(View.VISIBLE);
                     addIB.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String info = "Obligations " + String.format("%.0f",result);
+                            String info;
+                            if(currentLanguage.equals("ru"))
+                                info = "НДФЛ:\n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
+                            else
+                                info="NDFL:\n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
+
                             Operation op = new Operation(info);
 
                             ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -139,15 +137,17 @@ public class obligations_activity extends AppCompatActivity {
                             executorService.execute(()->{
                                 operationRepository.insertOperation(op);
                             });
+                            if (currentLanguage.equals("ru")){
+                                Toast.makeText(getApplicationContext(),"Расчет добавлен в историю",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Calculation was added to history",Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
-
                 }
+
             }
         });
-
-
-
 
 
     }

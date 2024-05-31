@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@color/rich_black"
-    tools:context=".car_tax_activity">
+    tools:context=".taxes.car_tax_activity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/RL1"

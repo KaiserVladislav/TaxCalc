@@ -7,7 +7,7 @@
     android:background="@color/rich_black"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".obligations_activity">
+    tools:context=".taxes.obligations_activity">
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

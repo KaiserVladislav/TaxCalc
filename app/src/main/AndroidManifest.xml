@@ -23,22 +23,22 @@
             android:name=".RegistrationActivity"
             android:exported="false" />
         <activity
-            android:name=".another_activity"
+            android:name=".taxes.another_activity"
             android:exported="false" />
         <activity
-            android:name=".obligations_activity"
+            android:name=".taxes.obligations_activity"
             android:exported="false" />
         <activity
-            android:name=".lottery_activity"
+            android:name=".taxes.lottery_activity"
             android:exported="false" />
         <activity
-            android:name=".ndfl_activity"
+            android:name=".taxes.ndfl_activity"
             android:exported="false" />
         <activity
-            android:name=".nds_activity"
+            android:name=".taxes.nds_activity"
             android:exported="false" />
         <activity
-            android:name=".car_tax_activity"
+            android:name=".taxes.car_tax_activity"
             android:exported="false" />
         <activity
             android:name=".empty_activity"

@@ -1,10 +1,15 @@
 package com.example.taxcalculator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,6 +37,36 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerView =  findViewById(R.id.OperationList_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         loadOperations();
+        ImageButton backIB=findViewById(R.id.back_to_SSA);
+        backIB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_left);
+                left.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+
+                });
+                backIB.setHovered(true);
+                backIB.startAnimation(left);
+            }
+        });
+
+
+
     }
 
     private void loadOperations() {
