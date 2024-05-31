@@ -36,33 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initializeComponents();
-        ImageButton backToSSA=findViewById(R.id.back_to_SSA);
-        backToSSA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Animation left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_left);
-                left.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        Intent intent = new Intent(getApplicationContext(), Home.class);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-
-                });
-                backToSSA.setHovered(true);
-                backToSSA.startAnimation(left);
-            }
-        });
 
     }
 
@@ -120,11 +93,37 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ImageButton backToSSA=findViewById(R.id.back_to_SSA);
+        backToSSA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation left = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_left);
+                left.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Intent intent = new Intent(getApplicationContext(), Home.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+
+                });
+                backToSSA.setHovered(true);
+                backToSSA.startAnimation(left);
+            }
+        });
     }
 
     private void loginLogic(String username, String password) {
-        SharedPreferences preferences = getSharedPreferences("Authorization", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
 
         RetrofitService retrofitService = new RetrofitService();
         UserApi userApi = retrofitService.getRetrofit().create(UserApi.class);
@@ -134,8 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     Log.d("Success", "Email response " + response.body());
-                    if (password.equals(response.body().getPassword())) {
-                        editor.putString("authorized", "true");
+                    if (password!= null && password.equals(response.body().getPassword())) {
                         Intent intent = new Intent(LoginActivity.this, Home.class);
                         Toast.makeText(getApplicationContext(), "Вы успешно авторизированы", Toast.LENGTH_LONG).show();
                         startActivity(intent);
@@ -155,8 +153,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     Log.d("Success", "Username response " + response.body());
-                    if (password.equals(response.body().getPassword())) {
-                        editor.putString("authorized", "true");
+                    if (password != null && password.equals(response.body().getPassword())) {
+
                         Intent intent = new Intent(LoginActivity.this, Home.class);
                         Toast.makeText(getApplicationContext(), "Вы успешно авторизированы", Toast.LENGTH_LONG).show();
                         startActivity(intent);

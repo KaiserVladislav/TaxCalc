@@ -15,6 +15,13 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.taxcalculator.LocalData.Operation;
+import com.example.taxcalculator.LocalData.OperationRepository;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.Locale;
+
 public class ndfl_activity extends AppCompatActivity {
     Button calculateB;
     ImageButton addIB, backIB;
@@ -59,8 +66,22 @@ public class ndfl_activity extends AppCompatActivity {
 
 
         spinner_residency=findViewById(R.id.spinner_residency_NDFL);
-        ArrayAdapter<CharSequence> adapter_residency = ArrayAdapter.createFromResource(this,
-                R.array.residency_types, R.layout.custom_spinner_item);
+
+        Locale currentLocale = Locale.getDefault();
+        String currentLanguage = currentLocale.getLanguage();
+
+        ArrayAdapter<CharSequence> adapter_residency;
+
+        if(currentLanguage.equals("ru")){
+            adapter_residency = ArrayAdapter.createFromResource(this,
+                    R.array.residency_types_rus, R.layout.custom_spinner_item);
+        }else{
+            adapter_residency = ArrayAdapter.createFromResource(this,
+                    R.array.residency_types_eng, R.layout.custom_spinner_item);
+        }
+
+
+
         adapter_residency.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinner_residency.setAdapter(adapter_residency);
         spinner_residency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -97,7 +118,19 @@ public class ndfl_activity extends AppCompatActivity {
                     tv.setVisibility(View.VISIBLE);
 
                     addIB.setVisibility(View.VISIBLE);
-                    //igor
+                    addIB.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String info = "NDFL " + String.format("%.0f",result);
+                            Operation op = new Operation(info);
+
+                            ExecutorService executorService = Executors.newSingleThreadExecutor();
+                            OperationRepository operationRepository = new OperationRepository(getApplicationContext());
+                            executorService.execute(()->{
+                                operationRepository.insertOperation(op);
+                            });
+                        }
+                    });
                 }
 
             }

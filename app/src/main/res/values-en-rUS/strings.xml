@@ -33,4 +33,7 @@
     <string name="type_of_goods">Type of goods</string>
     <string name="horsepower">Horsepower</string>
     <string name="yearly_income">Annual income</string>
+    <string name="release_date">Release date</string>
+    <string name="earlier">Earlier</string>
+    <string name="information_patchnotes">Empty</string>
 </resources>

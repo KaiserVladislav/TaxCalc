@@ -1,7 +1,6 @@
 package com.example.taxcalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,17 +13,24 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.util.Log;
+import com.example.taxcalculator.LocalData.Operation;
+import com.example.taxcalculator.LocalData.OperationRepository;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.Locale;
 
 public class car_tax_activity extends AppCompatActivity {
 
-    private Spinner spinner_regions,spinner_months,spinner_vehicle_types;
+    private Spinner spinner_regions,spinner_months,spinner_vehicle_types,spinner_release_dates;
     private Button calculate;
     private EditText horsepower;
     private ImageButton back;
     private TextView tv;
     private int months=12;
-    private String region="";
-    private String vehicle_type="";
+    private int region=77;
+    private int vehicle_type=1;
+    int release_date=2024;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,32 +67,33 @@ public class car_tax_activity extends AppCompatActivity {
 
         spinner_regions = findViewById(R.id.spinner_regions);
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.dropdown_regions, R.layout.custom_spinner_item);
+        ArrayAdapter<CharSequence> adapter_regions; // REGIONS
+        Locale currentLocale = Locale.getDefault();
+        String currentLanguage = currentLocale.getLanguage();
+        if(currentLanguage.equals("ru")) {
+            adapter_regions = ArrayAdapter.createFromResource(this,
+                    R.array.dropdown_regions_rus, R.layout.custom_spinner_item);
+        }else{
+            adapter_regions = ArrayAdapter.createFromResource(this,
+                    R.array.dropdown_regions_eng, R.layout.custom_spinner_item);
+        }
 
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinner_regions.setAdapter(adapter);
-
-        // Set an item selected listener
+        adapter_regions.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinner_regions.setAdapter(adapter_regions);
         spinner_regions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                region = parent.getItemAtPosition(position).toString();
-                //region=Integer.parseInt(selectedItem);
-                //Toast.makeText(car_tax_activity.this, "Selected: " + selectedItem, Toast.LENGTH_SHORT).show();
+                String regions_interpretation = parent.getItemAtPosition(position).toString();
+                region=Integer.parseInt(regions_interpretation.split("-")[0]);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Another interface callback
+
             }
         });
 
-        spinner_months = findViewById(R.id.spinner_months_of_ownership);
+        spinner_months = findViewById(R.id.spinner_months_of_ownership); // MONTHS OF OWNERSHIP
         ArrayAdapter<CharSequence> adapter_sm = ArrayAdapter.createFromResource(this,
                 R.array.dropdown_months_of_ownership, R.layout.custom_spinner_item);
         adapter_sm.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
@@ -104,15 +111,23 @@ public class car_tax_activity extends AppCompatActivity {
             }
         });
 
-        spinner_vehicle_types = findViewById(R.id.spinner_vehicle_types);
-        ArrayAdapter<CharSequence> adapter_vt = ArrayAdapter.createFromResource(this,
-                R.array.dropdown_vehicle_types, R.layout.custom_spinner_item);
+        spinner_vehicle_types = findViewById(R.id.spinner_vehicle_types); // VEHICLE TYPES
+        ArrayAdapter<CharSequence> adapter_vt;
+        if(currentLanguage.equals("ru")){
+            adapter_vt = ArrayAdapter.createFromResource(this,
+                    R.array.dropdown_vehicle_types_rus, R.layout.custom_spinner_item);
+        }else{
+            adapter_vt = ArrayAdapter.createFromResource(this,
+                    R.array.dropdown_vehicle_types_eng, R.layout.custom_spinner_item);
+        }
+
         adapter_vt.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinner_vehicle_types.setAdapter(adapter_vt);
         spinner_vehicle_types.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                vehicle_type = parent.getItemAtPosition(position).toString();
+                String vehicle_type_interpretation = parent.getItemAtPosition(position).toString();
+                vehicle_type=Integer.parseInt(vehicle_type_interpretation.split("\\.")[0]);
             }
 
             @Override
@@ -121,6 +136,29 @@ public class car_tax_activity extends AppCompatActivity {
             }
         });
 
+
+        spinner_release_dates = findViewById(R.id.release_date_spinner); // RELEASE DATE
+        ArrayAdapter<CharSequence> adapter_rd= ArrayAdapter.createFromResource(this,
+                R.array.dropdown_release_date, R.layout.custom_spinner_item);;
+
+        adapter_rd.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
+        spinner_release_dates.setAdapter(adapter_rd);
+        spinner_release_dates.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String release_date_interpretation = parent.getItemAtPosition(position).toString();
+                try{
+                    release_date=Integer.parseInt(release_date_interpretation);
+                }catch (NumberFormatException e){
+                    release_date=2000;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+        });
 
         horsepower=findViewById(R.id.horsepower_ET);
         calculate=findViewById(R.id.calc_car_tax);
@@ -135,28 +173,36 @@ public class car_tax_activity extends AppCompatActivity {
                     tv.setVisibility(View.VISIBLE);
                 }else{
                     double hp = Double.parseDouble(horsepower.getText().toString());
-
-                    if (region.equals("77-Москва")){
-                        region="Moscow";
-                    }else if(region.equals("78-Санкт-Петербург")){
-                        region="Saint-Petersburg";
-                    }
-
-                    double result = TaxCalculation.calculateCarTax(region,hp,months);
+                    double result = TaxCalculation.calculateCarTax(region,vehicle_type,hp, months, release_date);
                     tv.setText("");
                     String formatted = String.format("%.0f",result);
                     tv.append(formatted+" Р");
                     tv.setVisibility(View.VISIBLE);
-
                     add.setVisibility(View.VISIBLE);
 
-                    //
+                    add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String info = "CarTax " + String.format("%.0f",result);
+                            Operation op = new Operation(info);
+
+                            ExecutorService executorService = Executors.newSingleThreadExecutor();
+                            OperationRepository operationRepository = new OperationRepository(getApplicationContext());
+                            executorService.execute(()->{
+                                operationRepository.insertOperation(op);
+                            });
+
+                            Log.d("History", "CarTax added");
+                        }
+                    });
 
                 }
 
 
             }
         });
+
+
 
 
 

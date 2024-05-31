@@ -14,6 +14,13 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.example.taxcalculator.LocalData.Operation;
+import com.example.taxcalculator.LocalData.OperationRepository;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import java.util.Locale;
 
 public class lottery_activity extends AppCompatActivity {
 
@@ -69,8 +76,19 @@ public class lottery_activity extends AppCompatActivity {
         spinner_residency=findViewById(R.id.spinner_residency_Lottery);
         spinner_lottery_type=findViewById(R.id.spinner_lottery_type);
 
-        ArrayAdapter<CharSequence> adapter_residency = ArrayAdapter.createFromResource(this,
-                R.array.residency_types, R.layout.custom_spinner_item);
+        ArrayAdapter<CharSequence> adapter_residency;
+        Locale currentLocale = Locale.getDefault();
+        String currentLanguage = currentLocale.getLanguage();
+        if(currentLanguage.equals("ru")){
+            adapter_residency= ArrayAdapter.createFromResource(this,
+                    R.array.residency_types_rus, R.layout.custom_spinner_item);
+
+        }else{
+
+            adapter_residency= ArrayAdapter.createFromResource(this,
+                    R.array.residency_types_eng, R.layout.custom_spinner_item);
+        }
+
         adapter_residency.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinner_residency.setAdapter(adapter_residency);
         spinner_residency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,8 +102,16 @@ public class lottery_activity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<CharSequence> adapter_lottery_type = ArrayAdapter.createFromResource(this,
-                R.array.lottery_types, R.layout.custom_spinner_item);
+
+        ArrayAdapter<CharSequence> adapter_lottery_type;
+        if(currentLanguage.equals("ru")){
+            adapter_lottery_type = ArrayAdapter.createFromResource(this,
+                    R.array.lottery_types_rus, R.layout.custom_spinner_item);
+        }else{
+            adapter_lottery_type = ArrayAdapter.createFromResource(this,
+                    R.array.lottery_types_eng, R.layout.custom_spinner_item);
+        }
+
         adapter_lottery_type.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinner_lottery_type.setAdapter(adapter_lottery_type);
         spinner_lottery_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -123,7 +149,19 @@ public class lottery_activity extends AppCompatActivity {
                     lottery_tax_TV.setVisibility(View.VISIBLE);
 
                     addIB.setVisibility(View.VISIBLE);
-                    //igor
+                    addIB.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String info = "Lottery " + String.format("%.0f",result);
+                            Operation op = new Operation(info);
+
+                            ExecutorService executorService = Executors.newSingleThreadExecutor();
+                            OperationRepository operationRepository = new OperationRepository(getApplicationContext());
+                            executorService.execute(()->{
+                                operationRepository.insertOperation(op);
+                            });
+                        }
+                    });
 
                 }
             }

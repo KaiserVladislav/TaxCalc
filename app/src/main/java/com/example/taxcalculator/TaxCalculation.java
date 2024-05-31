@@ -36,30 +36,156 @@ public class TaxCalculation {
         }
         return 0;
     }
-    public static double calculateCarTax(String region, double horsePower, int months){
-        double result=0;
-        if(region.equals("Moscow")){
-            int[] c_table= {12,25,35,45,50,65,75,150};
-            double[] hp_table = {100, 125, 150,175,200,225,250, Double.MAX_VALUE};
-            result=0;
-            for(int i =0;i<hp_table.length;i++){
-                if (horsePower<=hp_table[i]){
-                    return Math.round(horsePower*c_table[i]*(months/12f));
+    public static double calculateCarTax(int region, int vehicle_type, double horsePower, int months, int release_date) {
+
+        release_date-=2024;//fix
+
+        double result = 0;
+        int[] c_table; // tax coefficient
+        double[] hp_table; // horsepower
+
+        switch (region) {
+            case 50://moscow oblast
+                switch (vehicle_type) {
+                    case 1://passenger vehicle
+                        c_table = new int[]{10, 34, 49, 75, 150};
+                        hp_table = new double[]{100, 150, 200, 250, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 2://motorcycle
+                        c_table = new int[]{9, 16, 50};
+                        hp_table = new double[]{20, 35, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 3://truck
+                        if (release_date <= 5)
+                            c_table = new int[]{20, 25, 33, 45, 58};
+                        else
+                            c_table = new int[]{25, 40, 50, 65, 85};
+
+                        hp_table = new double[]{100, 150, 200, 250, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+
                 }
-            }
-            return result;
-        }
-        else if(region.equals("Saint-Petersburg")){
-            int[] c_table= {24,35,50,75,150};
-            double[] hp_table = {100, 150, 200,250, Double.MAX_VALUE};
-            result=0;
-            for(int i =0;i<hp_table.length;i++){
-                if (horsePower<=hp_table[i]){
-                    return Math.round(horsePower*c_table[i]*(months/12f));
+                break;
+            case 77://moscow
+                switch (vehicle_type) {
+                    case 1://passenger vehicle
+                        c_table = new int[]{12, 25, 35, 45, 50, 65, 75, 150};
+                        hp_table = new double[]{100, 125, 150, 175, 200, 225, 250, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 2://motorcycle
+                        c_table = new int[]{7, 15, 50};
+                        hp_table = new double[]{20, 35, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 3://truck
+                        c_table = new int[]{15, 26, 38, 55, 70};
+                        hp_table = new double[]{100, 150, 200, 250, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+
+
                 }
-            }
+
+            case 78://saint petersburg
+                switch (vehicle_type) {
+                    case 1:
+                        c_table = new int[]{24, 35, 50, 75, 150};
+                        hp_table = new double[]{100, 150, 200, 250, Double.MAX_VALUE};
+
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 2:
+                        c_table = new int[]{10, 20, 30, 50};
+                        hp_table = new double[]{20, 35, 90, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (release_date <= 3)
+                            c_table = new int[]{25, 40, 50, 55, 45};
+                        else if (release_date <= 5)
+                            c_table = new int[]{25, 40, 50, 55, 65};
+                        else
+                            c_table = new int[]{25, 40, 50, 55, 85};
+
+                        hp_table = new double[]{100, 150, 200, 250, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+
+                }
+
+            case 92:
+                switch (vehicle_type) {
+                    case 1://passenger vehicle
+                        c_table = new int[]{5, 7, 25, 75, 100};
+                        hp_table = new double[]{100, 150, 200, 250, Double.MAX_VALUE};
+
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 2://motorcycle
+                        c_table = new int[]{2, 4, 10};
+                        hp_table = new double[]{20, 35, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                    case 3://truck
+                        c_table = new int[]{12, 20, 25, 30, 40};
+                        hp_table = new double[]{100, 150, 200, 250, Double.MAX_VALUE};
+                        for (int i = 0; i < hp_table.length; i++) {
+                            if (horsePower <= hp_table[i]) {
+                                return Math.round(horsePower * c_table[i] * (months / 12f));
+                            }
+                        }
+                        break;
+                }
         }
-        return result;
+        return result; // ~ default
     }
 
 

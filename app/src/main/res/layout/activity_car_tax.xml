@@ -125,7 +125,6 @@
             android:textSize="20sp"
             android:layout_margin="10dp"/>
         <EditText
-            android:padding="5dp"
             android:textColor="@color/cadet_gray"
             android:layout_gravity="center_vertical|end"
             android:layout_margin="10dp"
@@ -137,6 +136,32 @@
             />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_gravity="center_vertical|start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cadet_gray"
+            android:text="@string/release_date"
+            android:textSize="20sp"
+            android:layout_margin="10dp"/>
+        <Spinner
+            android:textColor="@color/cadet_gray"
+            android:layout_gravity="center_vertical|end"
+            android:layout_margin="10dp"
+            android:background="@drawable/frame"
+            android:id="@+id/release_date_spinner"
+            android:layout_width="170dp"
+            android:inputType="numberSigned"
+            android:layout_height="wrap_content"
+            />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
     <Button
         android:layout_margin="10dp"

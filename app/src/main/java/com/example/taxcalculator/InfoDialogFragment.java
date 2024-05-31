@@ -51,15 +51,6 @@ public class InfoDialogFragment extends DialogFragment {
         }
 
 
-
-
-
-
-
-        // Display the current language
-
-
-        // Set click listener for close button
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +58,6 @@ public class InfoDialogFragment extends DialogFragment {
             }
         });
 
-        // Set dialog size
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         return view;

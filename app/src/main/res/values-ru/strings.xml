@@ -33,4 +33,7 @@
     <string name="type_of_goods">Вид товаров</string>
     <string name="horsepower">Лошадиных сил</string>
     <string name="yearly_income">Годовой доход</string>
+    <string name="release_date">Дата выпуска</string>
+    <string name="earlier">Ранее</string>
+    <string name="information_patchnotes">Empty</string>
 </resources>

@@ -14,6 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.example.taxcalculator.LocalData.Operation;
+import com.example.taxcalculator.LocalData.OperationRepository;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.Locale;
 
 public class nds_activity extends AppCompatActivity {
     Button calculateB;
@@ -62,8 +67,20 @@ public class nds_activity extends AppCompatActivity {
         calculateB=findViewById(R.id.calc_NDS);
 
         spinner_type_of_goods=findViewById(R.id.spinner_type_of_goods);
-        ArrayAdapter<CharSequence> adapter_type_of_goods = ArrayAdapter.createFromResource(this,
-                R.array.types_of_goods, R.layout.custom_spinner_item);
+
+        Locale currentLocale = Locale.getDefault();
+        String currentLanguage = currentLocale.getLanguage();
+        ArrayAdapter<CharSequence> adapter_type_of_goods;
+        if(currentLanguage.equals("ru")){
+             adapter_type_of_goods = ArrayAdapter.createFromResource(this,
+                    R.array.types_of_goods_rus, R.layout.custom_spinner_item);
+        }else{
+             adapter_type_of_goods = ArrayAdapter.createFromResource(this,
+                    R.array.types_of_goods_eng, R.layout.custom_spinner_item);
+
+        }
+
+
         adapter_type_of_goods.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinner_type_of_goods.setAdapter(adapter_type_of_goods);
         spinner_type_of_goods.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -102,7 +119,19 @@ public class nds_activity extends AppCompatActivity {
                     tv.setVisibility(View.VISIBLE);
 
                     addIB.setVisibility(View.VISIBLE);
-                    //igor
+                    addIB.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String info = "NDS " + String.format("%.0f",result);
+                            Operation op = new Operation(info);
+
+                            ExecutorService executorService = Executors.newSingleThreadExecutor();
+                            OperationRepository operationRepository = new OperationRepository(getApplicationContext());
+                            executorService.execute(()->{
+                                operationRepository.insertOperation(op);
+                            });
+                        }
+                    });
 
                 }
             }

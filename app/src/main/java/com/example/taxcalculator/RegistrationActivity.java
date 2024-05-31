@@ -46,9 +46,26 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
         initializeComponents();
+    }
+    private void initializeComponents() {
+        EditText Username = findViewById(R.id.UsernameReg);
+        EditText Email = findViewById(R.id.EmailReg);
+        EditText Password = findViewById(R.id.PasswordReg);
+        Button registration = findViewById(R.id.Registration);
 
+        registration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String usernameValue = Username.getText().toString().trim();
+                String emailValue = Email.getText().toString().trim();
+                String passwordValue = Password.getText().toString().trim();
 
-
+                if(checkValues(usernameValue,emailValue, passwordValue)){
+                    checkEmailUniqueness(usernameValue, emailValue, passwordValue); //check email, username => registrate
+                    Log.d("DEBUG", "onClick: alright! ");
+                }
+            }
+        });
         ImageButton backToSSA=findViewById(R.id.back_to_SSA);
         backToSSA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,31 +94,10 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
-    private void initializeComponents() {
-        EditText Username = findViewById(R.id.UsernameReg);
-        EditText Email = findViewById(R.id.EmailReg);
-        EditText Password = findViewById(R.id.PasswordReg);
-        Button registration = findViewById(R.id.Registration);
-
-        registration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String usernameValue = Username.getText().toString().trim();
-                String emailValue = Email.getText().toString().trim();
-                String passwordValue = Password.getText().toString().trim();
-
-
-
-                if(checkValues(usernameValue,emailValue, passwordValue)){
-                    checkEmailUniqueness(usernameValue, emailValue, passwordValue); //check email, username => registrate
-                    Log.d("DEBUG", "onClick: alright! ");
-                }
-            }
-        });
-    }
     private void registrationLogic(String username, String email, String password){
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("checkbox", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+
         CheckBox rememberCheckBox = findViewById(R.id.RegRemember);
 
         if(rememberCheckBox.isChecked()){
@@ -122,11 +118,9 @@ public class RegistrationActivity extends AppCompatActivity {
         userApi.save(newUser).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "FAIL!", Toast.LENGTH_SHORT).show();
             }
         });
     }

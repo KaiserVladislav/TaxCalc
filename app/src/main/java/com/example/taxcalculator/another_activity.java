@@ -14,7 +14,7 @@ public class another_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_another);
+        setContentView(R.layout.activity_tax_leaflet);
 
         ImageButton backtoSSA=findViewById(R.id.back_to_SSA);
         backtoSSA.setOnClickListener(new View.OnClickListener() {

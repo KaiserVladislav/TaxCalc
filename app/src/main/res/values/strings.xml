@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">TaxCalc</string>
 
-
     <string name="info_button_description" translatable="false">Information button</string>
     <string name="income_button_description" translatable="false">Income button</string>
     <string name="bag_button_description" translatable="false">Bag button</string>
@@ -43,23 +42,39 @@
     <string name="history">История</string>
     <string name="yearly_income">Годовой доход</string>
     <string name="welcome">Добро пожаловать!</string>
-
-    <string name="information_patchnotes" translatable="false">
-        Версия приложения: 1.0    <br/>
-        Реализован расчет НДС, НДФЛ, налог на продажу ценных бумаг, на автомобиль, на лотерейные выигрыши.<br/>
-        Разработчики: Шендрик ВС, Воронков ИА. <br/>
-        Дизайнеры: Шендрик ВС.<br/>
-        Бэкенд-разработчики: Воронков ИА.</string>
+    <string name="release_date">Дата выпуска</string>
+    <string name="earlier">Ранее</string>
+    <string name="information_patchnotes">Empty</string>
 
 
-    <string-array name="dropdown_regions">
+    <string-array name="dropdown_regions_rus">
+        <item>"50-Московская область"</item>
         <item>"77-Москва"</item>
         <item>"78-Санкт-Петербург"</item>
+        <item>"92-Севастополь"</item>
     </string-array>
 
-    <string-array name="dropdown_vehicle_types">
-        <item>"Легковой автомобиль"</item>
+    <string-array name="dropdown_regions_eng">
+        <item>"50-Moscow oblast"</item>
+        <item>"77-Moscow"</item>
+        <item>"78-Saint Petersburg"</item>
+        <item>"92-Sevastopol"</item>
     </string-array>
+
+    <string-array name="dropdown_vehicle_types_rus">
+        <item>"1. Легковой автомобиль"</item>
+        <item>"2. Мотоцикл"</item>
+        <item>"3. Грузовой автомобиль"</item>
+    </string-array>
+
+    <string-array name="dropdown_vehicle_types_eng">
+        <item>"1. Passenger automobile"</item>
+        <item>"2. Motorcycle"</item>
+        <item>"3. Truck"</item>
+    </string-array>
+
+
+
     <string-array name="dropdown_months_of_ownership">
         <item>"1"</item>
         <item>"2"</item>
@@ -74,18 +89,50 @@
         <item>"11"</item>
         <item>"12"</item>
     </string-array>
-    <string-array name="lottery_types">
-        <item>"Государственная лотерея"</item>
-        <item>"Рекламная акция"</item>
+
+
+    <string-array name="dropdown_release_date">
+        <item>"2024"</item>
+        <item>"2023"</item>
+        <item>"2022"</item>
+        <item>"2021"</item>
+        <item>"2020"</item>
+        <item>"2019"</item>
+        <item>@string/earlier</item>
+
     </string-array>
-    <string-array name="residency_types">
-        <item>"Налоговый резидент"</item>
-        <item>"Налоговый нерезидент"</item>
+
+    <string-array name="lottery_types_rus">
+        <item>"1. Государственная лотерея"</item>
+        <item>"2. Рекламная акция"</item>
     </string-array>
-    <string-array name="types_of_goods">
-        <item>"Товары для экспорта"</item>
-        <item>"Продовольственные, медицинские, детские товары"</item>
-        <item>"Другое"</item>
+
+    <string-array name="lottery_types_eng">
+        <item>"1. State lottery"</item>
+        <item>"2. Promotional campaign"</item>
+    </string-array>
+
+
+    <string-array name="residency_types_rus">
+        <item>"1. Я - налоговый резидент"</item>
+        <item>"2. Я - налоговый нерезидент"</item>
+    </string-array>
+
+    <string-array name="residency_types_eng">
+        <item>"1. I am a tax resident"</item>
+        <item>"2. I am not a tax resident"</item>
+    </string-array>
+
+    <string-array name="types_of_goods_rus">
+        <item>"1. Товары для экспорта"</item>
+        <item>"2. Продовольственные, медицинские, детские товары"</item>
+        <item>"3. Другое"</item>
+    </string-array>
+
+    <string-array name="types_of_goods_eng">
+        <item>"1. Export-oriented goods"</item>
+        <item>"2. Food, medicine, goods for children"</item>
+        <item>"3. Other"</item>
     </string-array>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.example.taxcalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import com.example.taxcalculator.LocalData.Operation;
+import com.example.taxcalculator.LocalData.OperationRepository;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.Locale;
 
 public class obligations_activity extends AppCompatActivity {
 
@@ -66,8 +70,17 @@ public class obligations_activity extends AppCompatActivity {
         addIB=findViewById(R.id.add_to_history_OBLIGATION);
 
         spinner = findViewById(R.id.spinner_residency_OblTax);
-        ArrayAdapter<CharSequence> adapter_vt = ArrayAdapter.createFromResource(this,
-                R.array.residency_types, R.layout.custom_spinner_item);
+        ArrayAdapter<CharSequence> adapter_vt;
+        Locale currentLocale = Locale.getDefault();
+        String currentLanguage = currentLocale.getLanguage();
+        if(currentLanguage.equals("ru")){
+             adapter_vt = ArrayAdapter.createFromResource(this,
+                    R.array.residency_types_rus, R.layout.custom_spinner_item);
+        }else{
+            adapter_vt = ArrayAdapter.createFromResource(this,
+                    R.array.residency_types_eng, R.layout.custom_spinner_item);
+        }
+
         adapter_vt.setDropDownViewResource(R.layout.custom_spinner_dropdown_item);
         spinner.setAdapter(adapter_vt);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -115,10 +128,25 @@ public class obligations_activity extends AppCompatActivity {
                     obligation_taxTV.setVisibility(View.VISIBLE);
 
                     addIB.setVisibility(View.VISIBLE);
+                    addIB.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String info = "Obligations " + String.format("%.0f",result);
+                            Operation op = new Operation(info);
+
+                            ExecutorService executorService = Executors.newSingleThreadExecutor();
+                            OperationRepository operationRepository = new OperationRepository(getApplicationContext());
+                            executorService.execute(()->{
+                                operationRepository.insertOperation(op);
+                            });
+                        }
+                    });
 
                 }
             }
         });
+
+
 
 
 

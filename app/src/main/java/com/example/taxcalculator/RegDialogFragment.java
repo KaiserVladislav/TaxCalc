@@ -39,13 +39,16 @@ public class RegDialogFragment extends DialogFragment {
 
         SharedPreferences preferences = getActivity().getSharedPreferences("checkbox", Context.MODE_PRIVATE);
         String remembered = preferences.getString("remember", "");
-        SharedPreferences authorized = getActivity().getSharedPreferences("Authorization", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = authorized.edit();
+        SharedPreferences.Editor preferancesEditor = preferences.edit();
+
+        SharedPreferences authorization = getActivity().getSharedPreferences("Authorization", Context.MODE_PRIVATE);
+        String auth = authorization.getString("authorized", "false");
+        SharedPreferences.Editor authrozitaionEditor = authorization.edit();
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(remembered.equals("true")) {
+                if(remembered.equals("true") || auth.equals("true")) {
                     Toast.makeText(getActivity(), "Вы уже авторизованы", Toast.LENGTH_SHORT).show();
                     dismiss(); // Close the dialog
                 }
@@ -57,12 +60,17 @@ public class RegDialogFragment extends DialogFragment {
             }
         });
 
-        if(remembered.equals("true")){
+        Log.d("AUTH", "AUTH: "+auth);
+
+        if(auth.equals("true") || remembered.equals("true")){
             Registration.setText("Sign out");
             Registration.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editor.putString("authorized", "false");
+                    authrozitaionEditor.putString("authorized", "false");
+                    preferancesEditor.putString("remember", "false");
+                    preferancesEditor.putString("email", "");
+                    preferancesEditor.putString("username", "");
                     Toast.makeText(getActivity(), "Вы успешно вышли из аккаунта", Toast.LENGTH_SHORT);
                     dismiss();
                 }
@@ -83,6 +91,9 @@ public class RegDialogFragment extends DialogFragment {
         History.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), HistoryActivity.class);
+                startActivity(intent);
+                dismiss();
                 Log.d("REGDIALOG", "onClick: ");
             }
         });
