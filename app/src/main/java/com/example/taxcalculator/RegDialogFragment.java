@@ -63,7 +63,10 @@ public class RegDialogFragment extends DialogFragment {
         Log.d("AUTH", "AUTH: "+auth);
 
         if(auth.equals("true") || remembered.equals("true")){
-            Registration.setText("Sign out");
+            if(Home.CURRENT_LANGUAGE.equals("en"))
+                Registration.setText("Sign out");
+            else
+                Registration.setText("Выйти");
             Registration.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

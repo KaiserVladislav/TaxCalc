@@ -51,7 +51,7 @@ public class InfoDialogFragment extends DialogFragment {
 
         Locale currentLocale = Locale.getDefault();
         String currentLanguage = currentLocale.getLanguage();
-        if(currentLanguage.equals("ru")){
+        if(Home.CURRENT_LANGUAGE.equals("ru")){
             infoTextView.setText(text_ru);
         }else{
             infoTextView.setText(text_us);
@@ -90,7 +90,7 @@ public class InfoDialogFragment extends DialogFragment {
             }
         });
 
-        infoButton.setHovered(false);
+
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         return view;

@@ -3,33 +3,33 @@ package com.example.taxcalculator.taxes;
 import java.util.HashMap;
 import java.util.Calendar;
 public class TaxCalculation {
-    public static double calculateNDFL(double input, String residency){
+    public static double calculateNDFL(double input, int residency){
         if(input<=4000)
             return 0;
-        if(residency.equals("Alien"))
+        if(residency==2)
             return Math.round((input-4000)*0.3);
         return input < 5_000_000 ? Math.round((input-4000)*0.13) : Math.round((input-5_000_000)*0.15 + (5_000_000-4000)*0.13);
     }
-    public static double calculateNDS(double input, String type_of_good){
-        if(type_of_good.equals("Other")){
+    public static double calculateNDS(double input, int type_of_good){
+        if(type_of_good==3){
             return Math.round(input*0.2);
-        }else if(type_of_good.equals("Export")){
+        }else if(type_of_good==1){
             return 0;
         }else{
             return Math.round(0.1*input);
         }
     }
-    public static double calculateObligationsTax(double purchase_price, double sale_price, double amount_of_shares, String residency){
+    public static double calculateObligationsTax(double purchase_price, double sale_price, double amount_of_shares, int residency){
         return purchase_price>=sale_price? 0 : calculateNDFL(amount_of_shares*(sale_price-purchase_price), residency);
     }
-    public static double calculateLotteryTax(double input, String type_of_lottery, String residency){
+    public static double calculateLotteryTax(double input, int type_of_lottery, int residency){
         if(input<=4000)
             return 0;
-        if(residency.equals("Alien")){
+        if(residency==2){
             return calculateNDFL(input,residency);
         }
 
-        if(type_of_lottery.equals("State")){
+        if(type_of_lottery==1){
             calculateNDFL(input,residency);
         }else{
             return Math.round(0.35*(input-4000));

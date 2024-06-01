@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -30,6 +31,8 @@ public class Home extends AppCompatActivity  {
     private boolean isRussiaAtFront=true;
     private ImageButton russiaIB, usIB, menuIB, NDFL_IB, NDS_IB, Lottery_IB, Car_IB, Obligations_IB, Other_IB, info_IB;
     private TextView NDFL_tv, NDS_tv, Lottery_tv, Car_tv, Obligations_tv, Other_tv;
+    private static boolean language_changed_once=false;
+    public static String CURRENT_LANGUAGE;
 
 
     private void resetButtonStates() {
@@ -59,6 +62,13 @@ public class Home extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        if(!language_changed_once){
+            Locale currentLocale = Locale.getDefault();
+            String currentLanguage = currentLocale.getLanguage();
+            CURRENT_LANGUAGE=currentLanguage;
+            language_changed_once=true;
+        }
+
 
 
 
@@ -273,6 +283,7 @@ public class Home extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 switchFlags();
+
             }
         };
 
@@ -375,22 +386,61 @@ public class Home extends AppCompatActivity  {
                 usIB.startAnimation(fadeInSet);
 
                 if (isRussiaAtFront) {
-
+                    CURRENT_LANGUAGE="en";
                     usIB.bringToFront();
 
 
                 } else {
+                    CURRENT_LANGUAGE="ru";
                     russiaIB.bringToFront();
 
                 }
 
                 isRussiaAtFront = !isRussiaAtFront;
+                toggleLocale();
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) { }
         });
     }
+
+
+
+    private void toggleLocale() {
+        // Get the current locale
+        Locale currentLocale = getResources().getConfiguration().locale;
+        String currentLanguage = currentLocale.getLanguage();
+
+        // Toggle between English and Russian locales
+        Locale newLocale = currentLanguage.equals("en") ? new Locale("ru") : new Locale("en");
+
+        // Update the configuration with the new locale
+        Configuration configuration = new Configuration(getResources().getConfiguration());
+        configuration.setLocale(newLocale);
+        getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+
+        // Notify other parts of the application about the locale change
+        updateLocale();
+
+        // Restart the activity to apply the new locale
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+
+    private void updateLocale() {
+        // Get the new locale
+        Locale newLocale = getResources().getConfiguration().locale;
+
+        // Update the application's configuration
+        Configuration config = new Configuration(getResources().getConfiguration());
+        config.setLocale(newLocale);
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+    }
+
+
 
     private void swapPositions(ImageButton first, ImageButton second) {
         FrameLayout.LayoutParams firstParams = (FrameLayout.LayoutParams) first.getLayoutParams();

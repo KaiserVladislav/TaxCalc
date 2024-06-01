@@ -75,7 +75,7 @@ public class car_tax_activity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter_regions; // REGIONS
         Locale currentLocale = Locale.getDefault();
         String currentLanguage = currentLocale.getLanguage();
-        if(currentLanguage.equals("ru")) {
+        if(Home.CURRENT_LANGUAGE.equals("ru")) {
             adapter_regions = ArrayAdapter.createFromResource(this,
                     R.array.dropdown_regions_rus, R.layout.custom_spinner_item);
         }else{
@@ -118,7 +118,7 @@ public class car_tax_activity extends AppCompatActivity {
 
         spinner_vehicle_types = findViewById(R.id.spinner_vehicle_types); // VEHICLE TYPES
         ArrayAdapter<CharSequence> adapter_vt;
-        if(currentLanguage.equals("ru")){
+        if(Home.CURRENT_LANGUAGE.equals("ru")){
             adapter_vt = ArrayAdapter.createFromResource(this,
                     R.array.dropdown_vehicle_types_rus, R.layout.custom_spinner_item);
         }else{
@@ -173,8 +173,12 @@ public class car_tax_activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (horsepower.getText().toString().isEmpty()){
-                    tv.setText("");
-                    tv.append("No input. Please retry");
+                    String message;
+                    if(Home.CURRENT_LANGUAGE.equals("eng"))
+                        message="No input. Please retry";
+                    else
+                        message="Ошибка ввода. Попробуйте еще раз";
+                    tv.setText(message);
                     tv.setVisibility(View.VISIBLE);
                 }else{
                     double hp = Double.parseDouble(horsepower.getText().toString());
@@ -190,7 +194,7 @@ public class car_tax_activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             String info;
-                            if(currentLanguage.equals("ru"))
+                            if(Home.CURRENT_LANGUAGE.equals("ru"))
                                 info = "Транспортный налог:\n" + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
                             else
                                 info = "Transport tax:\n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
@@ -204,7 +208,7 @@ public class car_tax_activity extends AppCompatActivity {
 
                             Log.d("History", "CarTax added");
 
-                            if (currentLanguage.equals("ru")){
+                            if (Home.CURRENT_LANGUAGE.equals("ru")){
                                 Toast.makeText(getApplicationContext(),"Расчет добавлен в историю",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getApplicationContext(),"Calculation was added to history",Toast.LENGTH_SHORT).show();

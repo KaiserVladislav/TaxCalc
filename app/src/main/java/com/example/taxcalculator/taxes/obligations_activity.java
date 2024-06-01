@@ -31,7 +31,7 @@ public class obligations_activity extends AppCompatActivity {
     private ImageButton backIB, addIB;
     private EditText purchase_priceET, sale_priceET, amount_of_sharesET;
     private TextView obligation_taxTV;
-    private String residency="";
+    private int residency=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +78,7 @@ public class obligations_activity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter_vt;
         Locale currentLocale = Locale.getDefault();
         String currentLanguage = currentLocale.getLanguage();
-        if(currentLanguage.equals("ru")){
+        if(Home.CURRENT_LANGUAGE.equals("ru")){
              adapter_vt = ArrayAdapter.createFromResource(this,
                     R.array.residency_types_rus, R.layout.custom_spinner_item);
         }else{
@@ -91,7 +91,8 @@ public class obligations_activity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                residency = parent.getItemAtPosition(position).toString();
+                String residency_interpretation = parent.getItemAtPosition(position).toString();
+                residency=Integer.parseInt(residency_interpretation.split("\\.")[0]);
             }
 
             @Override
@@ -109,17 +110,18 @@ public class obligations_activity extends AppCompatActivity {
                 if (purchase_priceET.getText().toString().isEmpty() ||
                         purchase_priceET.getText().toString().isEmpty() ||
                         purchase_priceET.getText().toString().isEmpty() ){
-                    String message="No input. Please retry";
+                    String message;
+                    if(Home.CURRENT_LANGUAGE.equals("eng"))
+                        message="No input. Please retry";
+                    else
+                        message="Ошибка ввода. Попробуйте еще раз";
+
                     obligation_taxTV.setText("");
                     obligation_taxTV.append(message);
                     obligation_taxTV.setVisibility(View.VISIBLE);
 
                 }else{
-                    if(residency.equals("Налоговый нерезидент"))
-                        residency="Alien";
-                    else {
-                        residency="Russian";
-                    }
+
 
                     double purchase_price=Double.parseDouble(purchase_priceET.getText().toString());
                     double sale_price=Double.parseDouble(sale_priceET.getText().toString());
@@ -137,7 +139,7 @@ public class obligations_activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             String info;
-                            if (currentLanguage.equals("ru"))
+                            if (Home.CURRENT_LANGUAGE.equals("ru"))
                                 info = "Налог на ценные бумаги:\n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
                             else
                                 info = "Obligations tax: \n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
@@ -148,7 +150,7 @@ public class obligations_activity extends AppCompatActivity {
                             executorService.execute(()->{
                                 operationRepository.insertOperation(op);
                             });
-                            if (currentLanguage.equals("ru")){
+                            if (Home.CURRENT_LANGUAGE.equals("ru")){
                                 Toast.makeText(getApplicationContext(),"Расчет добавлен в историю",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getApplicationContext(),"Calculation was added to history",Toast.LENGTH_SHORT).show();

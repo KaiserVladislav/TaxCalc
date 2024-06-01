@@ -46,5 +46,8 @@ public class another_activity extends AppCompatActivity {
                 backtoSSA.startAnimation(left);
             }
         });
+
+
+
     }
 }

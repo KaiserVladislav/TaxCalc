@@ -33,8 +33,8 @@ public class lottery_activity extends AppCompatActivity {
     private ImageButton backIB, addIB;
     private EditText prize_ET;
     private TextView lottery_tax_TV;
-    private String residency="";
-    private String lottery_type="";
+    private int residency=1;
+    private int lottery_type=1;
 
 
     @Override
@@ -83,7 +83,7 @@ public class lottery_activity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter_residency;
         Locale currentLocale = Locale.getDefault();
         String currentLanguage = currentLocale.getLanguage();
-        if(currentLanguage.equals("ru")){
+        if(Home.CURRENT_LANGUAGE.equals("ru")){
             adapter_residency= ArrayAdapter.createFromResource(this,
                     R.array.residency_types_rus, R.layout.custom_spinner_item);
 
@@ -98,7 +98,8 @@ public class lottery_activity extends AppCompatActivity {
         spinner_residency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                residency = parent.getItemAtPosition(position).toString();
+                String residency_interpretation =  parent.getItemAtPosition(position).toString();
+                residency = Integer.parseInt(residency_interpretation.split("\\.")[0]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -108,7 +109,7 @@ public class lottery_activity extends AppCompatActivity {
 
 
         ArrayAdapter<CharSequence> adapter_lottery_type;
-        if(currentLanguage.equals("ru")){
+        if(Home.CURRENT_LANGUAGE.equals("ru")){
             adapter_lottery_type = ArrayAdapter.createFromResource(this,
                     R.array.lottery_types_rus, R.layout.custom_spinner_item);
         }else{
@@ -121,7 +122,8 @@ public class lottery_activity extends AppCompatActivity {
         spinner_lottery_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                lottery_type = parent.getItemAtPosition(position).toString();
+                String lottery_type_interpretation = parent.getItemAtPosition(position).toString();
+                lottery_type=Integer.parseInt(lottery_type_interpretation.split("\\.")[0]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -135,14 +137,17 @@ public class lottery_activity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (prize_ET.getText().toString().isEmpty() ){
-                    String message="No input. Please retry";
+                    String message;
+                    if(Home.CURRENT_LANGUAGE.equals("eng"))
+                        message="No input. Please retry";
+                    else
+                        message="Ошибка ввода. Попробуйте еще раз";
+
                     lottery_tax_TV.setText("");
                     lottery_tax_TV.append(message);
                     lottery_tax_TV.setVisibility(View.VISIBLE);
                 }else{
 
-                    residency= residency.equals("Налоговый нерезидент") ? "Alien":"Russian";
-                    lottery_type= lottery_type.equals("Государственная лотерея")? "State"  : "Private";
 
                     double prize=Double.parseDouble(prize_ET.getText().toString());
                     double result = TaxCalculation.calculateLotteryTax(prize, lottery_type,residency);
@@ -157,7 +162,7 @@ public class lottery_activity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             String info;
-                            if (currentLanguage.equals("ru"))
+                            if (Home.CURRENT_LANGUAGE.equals("ru"))
                                 info = "Налог на лотерейный выигрыш:\n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
                             else
                                 info="Lottery gains tax:\n " + String.format("%.0f",result)+" Р\n"+TaxCalculation.getTime();
@@ -168,7 +173,7 @@ public class lottery_activity extends AppCompatActivity {
                             executorService.execute(()->{
                                 operationRepository.insertOperation(op);
                             });
-                            if (currentLanguage.equals("ru")){
+                            if (Home.CURRENT_LANGUAGE.equals("ru")){
                                 Toast.makeText(getApplicationContext(),"Расчет добавлен в историю",Toast.LENGTH_SHORT).show();
                             }else{
                                 Toast.makeText(getApplicationContext(),"Calculation was added to history",Toast.LENGTH_SHORT).show();
