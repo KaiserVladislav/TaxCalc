@@ -38,14 +38,13 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
         android:layout_margin="5dp"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
-            android:layout_gravity="center_vertical|start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/cadet_gray"
@@ -53,22 +52,22 @@
             android:textSize="20sp"
             android:layout_margin="10dp"/>
         <Spinner
-            android:layout_gravity="center_vertical|end"
-            android:layout_margin="10dp"
             android:background="@drawable/frame"
+            android:layout_margin="10dp"
             android:id="@+id/spinner_type_of_goods"
             android:gravity="center_vertical"
-            android:layout_width="170dp"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_margin="5dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:layout_gravity="center_vertical|start"
@@ -99,7 +98,9 @@
         android:layout_width="wrap_content"
         android:textColor="@color/golden"
         android:textSize="25sp"
-        android:backgroundTint="@color/rich_black"
+        android:background="@drawable/frame_thin_et"
+        android:inputType="text"
+        android:padding="10dp"
         android:text="@string/calculate"/>
     <!-- -->
 

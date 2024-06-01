@@ -1,5 +1,6 @@
 package com.example.taxcalculator;
 
+import android.content.Context;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,6 +32,9 @@ public class InfoDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_info, container, false);
 
+        Home home_activity = (Home) getActivity();
+        ImageButton infoButton = home_activity.findViewById(R.id.infoIB);
+
         infoTextView = view.findViewById(R.id.infoTextView);
         closeButton = view.findViewById(R.id.closeButton);
         String text_ru="Версия приложения: 1.0\n" +
@@ -58,9 +62,9 @@ public class InfoDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-                Home home_activity = (Home) getActivity();
+                //Home home_activity = (Home) getActivity();
                 if (home_activity != null) {
-                    ImageButton infoButton = home_activity.findViewById(R.id.infoIB);
+
                     Animation rotate_CC = AnimationUtils.loadAnimation(home_activity.getApplicationContext(), R.anim.rotate_info_counter_clockwise);
                     rotate_CC.setAnimationListener(new Animation.AnimationListener() {
                         @Override
@@ -82,12 +86,17 @@ public class InfoDialogFragment extends DialogFragment {
                     infoButton.startAnimation(rotate_CC);
                     v.startAnimation(rotate_CC);
                 }
+
             }
         });
 
+        infoButton.setHovered(false);
         getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         return view;
     }
+
+
+
 
 }

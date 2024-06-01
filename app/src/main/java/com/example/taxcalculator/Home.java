@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,14 +23,37 @@ import com.example.taxcalculator.taxes.ndfl_activity;
 import com.example.taxcalculator.taxes.nds_activity;
 import com.example.taxcalculator.taxes.obligations_activity;
 
-public class Home extends AppCompatActivity {
+import java.util.Locale;
+
+public class Home extends AppCompatActivity  {
 
     private boolean isRussiaAtFront=true;
-    private static boolean position_changed_once=false;
     private ImageButton russiaIB, usIB, menuIB, NDFL_IB, NDS_IB, Lottery_IB, Car_IB, Obligations_IB, Other_IB, info_IB;
     private TextView NDFL_tv, NDS_tv, Lottery_tv, Car_tv, Obligations_tv, Other_tv;
 
 
+    private void resetButtonStates() {
+        NDFL_IB.setHovered(false);
+        NDS_IB.setHovered(false);
+        Lottery_IB.setHovered(false);
+        Obligations_IB.setHovered(false);
+        Other_IB.setHovered(false);
+        Car_IB.setHovered(false);
+
+        NDFL_tv.setTextColor(getResources().getColor(R.color.cadet_gray));
+        NDS_tv.setTextColor(getResources().getColor(R.color.cadet_gray));
+        Car_tv.setTextColor(getResources().getColor(R.color.cadet_gray));
+        Obligations_tv.setTextColor(getResources().getColor(R.color.cadet_gray));
+        Lottery_tv.setTextColor(getResources().getColor(R.color.cadet_gray));
+        Other_tv.setTextColor(getResources().getColor(R.color.cadet_gray));
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resetButtonStates();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +83,23 @@ public class Home extends AppCompatActivity {
         Other_tv=findViewById(R.id.TV_another);
 
 
+
         /* TODO: LOCALISATION
         if(position_changed_once){
             swapPositions(russiaIB,usIB);
             usIB.bringToFront();
         }*/
+        // Check the locale and swap the positions if the locale is English
+        Configuration config = getResources().getConfiguration();
+        Locale currentLocale = config.getLocales().get(0);
+        if (currentLocale.getLanguage().equals("en")) {
+            swapPositions(russiaIB, usIB);
+            usIB.bringToFront();
+            isRussiaAtFront = false;
+        }
 
-        Car_IB.setOnClickListener(new View.OnClickListener() {
+
+            Car_IB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Animation jump = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.jump);
@@ -343,11 +377,11 @@ public class Home extends AppCompatActivity {
                 if (isRussiaAtFront) {
 
                     usIB.bringToFront();
-                    position_changed_once=true;
+
 
                 } else {
                     russiaIB.bringToFront();
-                    position_changed_once=false;
+
                 }
 
                 isRussiaAtFront = !isRussiaAtFront;

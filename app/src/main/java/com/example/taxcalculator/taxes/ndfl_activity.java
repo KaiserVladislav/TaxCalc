@@ -34,6 +34,7 @@ public class ndfl_activity extends AppCompatActivity {
 
     String residency="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

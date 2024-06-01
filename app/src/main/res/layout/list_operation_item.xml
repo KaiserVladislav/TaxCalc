@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/rich_black"
-    android:layout_height="100dp">
+    android:layout_height="120dp">
     <TextView
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:id="@+id/operation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -70,7 +70,9 @@
         android:layout_height="60dp"
         android:text="@string/login"
         android:textSize="32sp"
-        android:backgroundTint="@color/rich_black"
+
+        android:background="@drawable/frame_thin_et"
+        android:inputType="text"
         android:textColor="@color/golden"
         android:fontFamily="sans-serif-condensed-medium">
     </Button>

@@ -92,7 +92,8 @@
             android:layout_height="60dp"
             android:text="@string/register"
             android:textColor="@color/golden"
-            android:backgroundTint="@color/rich_black"
+            android:background="@drawable/frame_thin_et"
+            android:inputType="text"
             android:textSize="32sp"
             android:fontFamily="sans-serif-condensed-medium">
         </Button>

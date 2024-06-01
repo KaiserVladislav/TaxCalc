@@ -5,5 +5,5 @@
     android:background="@drawable/frame_golden"
     android:textColor="@color/misty_rose"
     android:padding="15dp"
-    android:gravity="end"
+    android:gravity="start"
     android:textSize="20sp" />
